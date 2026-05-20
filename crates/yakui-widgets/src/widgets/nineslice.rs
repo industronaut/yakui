@@ -1,5 +1,5 @@
 use yakui_core::{
-    geometry::{Rect, Vec2, Vec4, Color},
+    geometry::{Rect, Vec2, Color},
     paint::{PaintMesh, Vertex},
     widget::{PaintContext, Widget},
     ManagedTextureId, Response,
