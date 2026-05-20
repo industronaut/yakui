@@ -1,5 +1,5 @@
 use yakui_core::{
-    geometry::{Rect, Vec2, Vec4},
+    geometry::{Rect, Vec2, Color},
     paint::{PaintMesh, Vertex},
     widget::{PaintContext, Widget},
     ManagedTextureId, Response,
@@ -17,12 +17,15 @@ pub struct NineSlice {
     pub margins: Pad,
 
     pub scale: f32,
+
+    pub color: Color,
 }
 
 auto_builders!(NineSlice {
     texture: ManagedTextureId,
     margins: Pad,
     scale: f32,
+    color: Color
 });
 
 impl NineSlice {
@@ -31,6 +34,7 @@ impl NineSlice {
             texture,
             margins,
             scale,
+            color: Color::WHITE,
         }
     }
 
@@ -84,6 +88,7 @@ impl Widget for NineSliceWidget {
                     ..
                 },
             scale,
+            color,
         } = *props;
 
         let rect = ctx.layout.get(ctx.dom.current()).unwrap().rect;
@@ -115,7 +120,7 @@ impl Widget for NineSliceWidget {
                 let tex_coords = Vec2::new(u, v);
 
                 let pos = top_left + rel_pos;
-                Vertex::new(pos, tex_coords, Vec4::splat(1.0))
+                Vertex::new(pos, tex_coords, color.to_linear())
             })
         });
 
